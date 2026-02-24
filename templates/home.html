@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="hero">
+    <h1>Smart Eye Monitoring for Safer Roads</h1>
+    <p>
+        DrowsiSense™ uses advanced computer vision to detect early signs of driver fatigue,
+        providing real-time alerts to prevent accidents before they happen.
+    </p>
+    <div class="hero-actions">
+        <a href="/detect" class="btn-primary">Launch Detection Cloud</a>
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature-card">
+        <div class="feature-icon">👁️</div>
+        <h3>Live Eye-Tracking</h3>
+        <p>Advanced EAR (Eye Aspect Ratio) analysis monitors blinking patterns and eye closure time in real-time.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Ultra-Low Latency</h3>
+        <p>Optimized AI models ensure instantaneous detection and millisecond response times for critical alerts.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <h3>Smart Alert System</h3>
+        <p>Progressive audio and visual warnings that escalate based on the severity of the detected drowsiness.</p>
+    </div>
+</section>
+
+{% endblock %}

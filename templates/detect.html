@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="page-header hero" style="padding: 40px 0;">
+    <h1>Live AI Monitoring</h1>
+    <p>Advanced Real-time Fatigue Detection System</p>
+</section>
+
+<div class="video-section" style="display: flex; flex-direction: column; align-items: center; gap: 32px;">
+    <div class="feature-card"
+        style="width: 100%; max-width: 800px; padding: 10px; border-radius: 32px; overflow: hidden; background: #000; border: 2px solid var(--glass-border); position: relative;">
+        <div id="video-wrapper"
+            style="aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; background: #000;">
+            <img src="{{ url_for('video_feed') }}" style="width: 100%; height: 100%; object-fit: cover;"
+                onerror="this.src='https://placehold.co/800x450/000/38bdf8?text=Camera+Initializing...'">
+            <div id="status-badge"
+                style="position: absolute; top: 20px; right: 20px; background: rgba(56, 189, 248, 0.6); padding: 6px 16px; border-radius: 8px; font-size: 14px; font-weight: bold; color: white; text-transform: uppercase; backdrop-filter: blur(4px);">
+                SCANNING</div>
+        </div>
+    </div>
+
+    <div class="detection-info"
+        style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; max-width: 800px;">
+        <div class="feature-card" style="text-align: center; padding: 24px;">
+            <p style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Eye
+                Ratio (EAR)</p>
+            <h2 id="ear-val">0.00</h2>
+        </div>
+        <div class="feature-card" style="text-align: center; padding: 24px;">
+            <p style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Mouth
+                Ratio (MAR)</p>
+            <h2 id="mar-val">0.00</h2>
+        </div>
+    </div>
+
+    <div id="alert-box" class="feature-card"
+        style="max-width: 800px; width: 100%; text-align: center; transition: all 0.3s ease;">
+        <p id="alert-text" style="color: var(--primary); font-weight: 600; font-size: 18px; margin: 0;">
+            SYSTEM ACTIVE: MONITORING STABILITY
+        </p>
+    </div>
+</div>
+
+<!-- Audio Alert -->
+<audio id="alert-sound">
+    <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+</audio>
+
+<script>
+    const statusBadge = document.getElementById('status-badge');
+    const earDisplay = document.getElementById('ear-val');
+    const marDisplay = document.getElementById('mar-val');
+    const alertBox = document.getElementById('alert-box');
+    const alertText = document.getElementById('alert-text');
+    const alertSound = document.getElementById('alert-sound');
+
+    let alertActive = false;
+
+    function updateStatus() {
+        fetch('/status')
+            .then(response => response.json())
+            .then(data => {
+                earDisplay.innerText = data.ear.toFixed(2);
+                marDisplay.innerText = data.mar.toFixed(2);
+
+                if (data.status === "Drowsy") {
+                    statusBadge.style.background = "rgba(239, 68, 68, 0.8)";
+                    statusBadge.innerText = "DROWSY DETECTED";
+                    alertBox.style.borderColor = "#ef4444";
+                    alertBox.style.background = "rgba(239, 68, 68, 0.1)";
+                    alertText.innerText = "🚨 WARNING: WAKE UP! 🚨";
+                    alertText.style.color = "#ef4444";
+                    if (!alertActive) {
+                        alertSound.play();
+                        alertActive = true;
+                    }
+                } else if (data.status === "Yawning") {
+                    statusBadge.style.background = "rgba(245, 158, 11, 0.8)";
+                    statusBadge.innerText = "YAWN DETECTED";
+                    alertBox.style.borderColor = "#f59e0b";
+                    alertBox.style.background = "rgba(245, 158, 11, 0.1)";
+                    alertText.innerText = "⚠ FATIGUE DETECTED: TAKE A BREAK";
+                    alertText.style.color = "#f59e0b";
+                    alertActive = false;
+                } else {
+                    statusBadge.style.background = "rgba(56, 189, 248, 0.6)";
+                    statusBadge.innerText = "SCANNING";
+                    alertBox.style.borderColor = "var(--glass-border)";
+                    alertBox.style.background = "var(--glass-bg)";
+                    alertText.innerText = "SYSTEM ACTIVE: MONITORING STABILITY";
+                    alertText.style.color = "var(--primary)";
+                    alertActive = false;
+                }
+            });
+    }
+
+    setInterval(updateStatus, 300);
+</script>
+
+{% endblock %}

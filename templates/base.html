@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DrowsiSense™ | Smart Driver Safety</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="dark-theme">
+    <div class="bg-gradient"></div>
+    <div class="bg-mesh"></div>
+
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/drowsisense_logo.png') }}" alt="DrowsiSense Logo">
+                <span class="logo-text">DrowsiSense</span>
+            </div>
+            <nav>
+                <a href="/" class="nav-link">Home</a>
+                <a href="/about" class="nav-link">About</a>
+                <a href="/detect" class="nav-link">AI Detection</a>
+                <a href="/contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="content-container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>© 2026 DrowsiSense™ | Smart Vision-Based Driver Safety Solution</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

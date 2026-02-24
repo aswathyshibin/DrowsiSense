@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="page-header hero" style="padding: 40px 0;">
+    <h1>About DrowsiSense™</h1>
+</section>
+
+<section class="about-content" style="max-width: 800px; margin: 0 auto;">
+    <div class="feature-card" style="animation-delay: 0.1s;">
+        <p>
+            Road accidents caused by driver fatigue are a major global safety concern.
+            DrowsiSense™ addresses this problem by leveraging computer vision techniques
+            to monitor driver alertness in real time.
+        </p>
+        <p>
+            The system analyzes eye blink patterns using the Eye Aspect Ratio (EAR)
+            method. When prolonged eye closure is detected, the system identifies
+            drowsiness and triggers an alert to regain driver attention.
+        </p>
+    </div>
+
+    <div class="features" style="margin-top: 40px;">
+        <div class="feature-card" style="animation-delay: 0.2s;">
+            <h3>Key Technologies</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 12px; color: var(--text-muted);">🔹 Computer Vision (OpenCV)</li>
+                <li style="margin-bottom: 12px; color: var(--text-muted);">🔹 Facial Landmark Detection</li>
+                <li style="margin-bottom: 12px; color: var(--text-muted);">🔹 Eye Aspect Ratio (EAR)</li>
+                <li style="margin-bottom: 12px; color: var(--text-muted);">🔹 Real-Time Alert System</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
